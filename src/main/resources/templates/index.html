@@ -22,7 +22,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -44,11 +45,35 @@
     <div class="form-inline" id="navbarNavInLine">
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#"><div th:text="${user}"></div></a>
+                <a class="nav-link" href="#">
+                    <div th:text="${user}"></div>
+                </a>
             </li>
         </ul>
     </div>
 </nav>
+
+<div class="container pt-3">
+    <table class="table" style="width: 70%; margin: auto">
+        <tr>
+            <th style="text-align: center" colspan="5">Accidents list</th>
+        </tr>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Address</th>
+        </tr>
+        <tr th:each="accident: ${accidents}">
+            <div>
+                <td th:text="${accident.getId()}"></td>
+                <td th:text="${accident.getName()}"></td>
+                <td th:text="${accident.getText()}"></td>
+                <td th:text="${accident.getAddress()}"></td>
+            </div>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
