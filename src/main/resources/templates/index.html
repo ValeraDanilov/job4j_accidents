@@ -15,6 +15,9 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <style>
+        .bott {
+            text-align: left;
+        }
     </style>
     <title>Автомобильные инциденты</title>
 </head>
@@ -54,26 +57,89 @@
 </nav>
 
 <div class="container pt-3">
-    <table class="table" style="width: 70%; margin: auto">
-        <tr>
-            <th style="text-align: center" colspan="5">Accidents list</th>
+    <table class="table">
+        <div class="bott">
+            <button type="button" class="btn btn-success" style="color: #ffffff; display: inline-block;"
+                    data-toggle="modal"
+                    data-target="#addModal">Add accident
+            </button>
+        </div>
+        <tr style="border: 0">
+            <th style="text-align: center; border: 0" colspan="5">Accidents list</th>
         </tr>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Address</th>
+        <tr style="font-size: large">
+            <th style="border: 0" scope="col">#</th>
+            <th style="border: 0" scope="col">Name</th>
+            <th style="border: 0" scope="col">Description</th>
+            <th style="border: 0" scope="col">Address</th>
         </tr>
-        <tr th:each="accident: ${accidents}">
+
+        <tr th:each="accident: ${accidents}" style="border: 0">
             <div>
-                <td th:text="${accident.getId()}"></td>
-                <td th:text="${accident.getName()}"></td>
-                <td th:text="${accident.getText()}"></td>
-                <td th:text="${accident.getAddress()}"></td>
+                <td style="border: 0" th:text="${accident.getId()}"></td>
+                <td style="border: 0"><a style="color: black" class="col" th:href="@{|/formAccidentId/${accident.id}|}">
+                    <i th:href="@{/accident.name}" th:text="${accident.name}"></i>
+                </a></td>
+                <td style="border: 0" th:text="${accident.getDescription()}"></td>
+                <td style="border: 0" th:text="${accident.getAddress()}"></td>
             </div>
         </tr>
     </table>
 </div>
+
+<div class="main">
+    <br>
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">New Accident</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="data" method="post">
+                        <input type="hidden" name="id" value="0"/>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" name="description" id="description">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" name="address" id="address">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="send_accident()">
+                        Send
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function send_accident() {
+        let formElement = document.getElementById("data");
+        let data = new FormData(formElement);
+        fetch("/createAccident", {
+            method: "POST",
+            body: data
+        }).then(res => {
+            window.location.reload();
+        });
+    }
+</script>
 
 </body>
 </html>

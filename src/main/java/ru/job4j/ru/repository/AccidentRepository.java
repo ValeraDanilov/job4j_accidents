@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AccidentRepository {
 
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
+    private int index = 3;
 
     {
         Accident firstAccident = new Accident(1, "Name", "Text", "Address");
@@ -23,6 +24,8 @@ public class AccidentRepository {
     }
 
     public void create(Accident accident) {
+        ++index;
+        accident.setId(index);
         this.accidents.put(accident.getId(), accident);
     }
 
