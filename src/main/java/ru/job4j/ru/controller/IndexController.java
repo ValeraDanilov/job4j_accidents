@@ -19,6 +19,7 @@ public class IndexController {
     public String index(Model model) {
         model.addAttribute("user", "Ira");
         model.addAttribute("accidents", this.service.findAll());
+        model.addAttribute("types", this.service.findAllType());
         return "index";
     }
 }

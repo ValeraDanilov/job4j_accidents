@@ -19,6 +19,7 @@ public class AccidentController {
         return "accident";
     }
 
+
     @GetMapping("/formAccidentId/{id}")
     public String searchItem(Model model, @PathVariable Integer id) {
         model.addAttribute("accidents", this.accidents.findById(id));
@@ -27,7 +28,8 @@ public class AccidentController {
     }
 
     @PostMapping("/createAccident")
-    public String save(@ModelAttribute Accident accident) {
+    public String save(@ModelAttribute Accident accident, @RequestParam(value = "type.id") Integer typeId) {
+        accident.setType(this.accidents.findByIdType(typeId));
         accidents.create(accident);
         return "redirect:/index";
     }
@@ -35,11 +37,13 @@ public class AccidentController {
     @GetMapping("/formUpdateAccident/{accidentId}")
     public String formUpdateItem(Model model, @PathVariable("accidentId") int id) {
         model.addAttribute("accident", this.accidents.findById(id));
+        model.addAttribute("types", this.accidents.findAllType());
         return "updateAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String updateItem(@ModelAttribute Accident accident) {
+    public String updateItem(@ModelAttribute Accident accident, @RequestParam(value = "type.id") Integer typeId) {
+        accident.setType(this.accidents.findByIdType(typeId));
         this.accidents.update(accident);
         return String.format("redirect:/formAccidentId/%s", accident.getId());
     }
