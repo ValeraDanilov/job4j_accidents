@@ -60,6 +60,7 @@
             <th style="border: 0" scope="col">Id</th>
             <th style="border: 0" scope="col">Name</th>
             <th style="border: 0" scope="col">Type</th>
+            <th style="border: 0" scope="col">Article</th>
             <th style="border: 0" scope="col">Description</th>
             <th style="border: 0" scope="col">Address</th>
         </tr>
@@ -74,6 +75,10 @@
             <td style="border: 0" th:text="${accident.id}"></td>
             <td style="border: 0" th:text="${accident.name}"></td>
             <td style="border: 0" th:text="${accident.type.getName()}"></td>
+            <td style="border: 0">
+                       <span th:each="ruls,iter : ${accident.getRules()}"
+                             th:text="${ruls.name} + ${!iter.last ? ', ' : ''}"></span>
+            </td>
             <td style="border: 0" th:text="${accident.description}"></td>
             <td style="border: 0" th:text="${accident.address}"></td>
         </tr>

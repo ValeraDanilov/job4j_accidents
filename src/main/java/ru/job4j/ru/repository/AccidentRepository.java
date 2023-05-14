@@ -3,26 +3,31 @@ package ru.job4j.ru.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.ru.model.Accident;
 import ru.job4j.ru.model.AccidentType;
+import ru.job4j.ru.model.Rule;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class AccidentRepository {
 
     private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
-    private final List<AccidentType> types =
-            List.of(new AccidentType(0, "Two cars"),
-                    new AccidentType(1, "Car and person"),
-                    new AccidentType(2, "Car and bicycle"));
+    private final List<AccidentType> types = List.of(
+            new AccidentType(0, "Two cars"),
+            new AccidentType(1, "Car and person"),
+            new AccidentType(2, "Car and bicycle"));
     private int index = 3;
 
+    private final List<Rule> rules = List.of(
+            new Rule(0, "Статья. 1"),
+            new Rule(1, "Статья. 2"),
+            new Rule(2, "Статья. 3")
+    );
+
     {
-        Accident firstAccident = new Accident(1, "Name", "Text", this.types.get(0), "Address");
-        Accident secondAccident = new Accident(2, "Name1", "Text", this.types.get(1), "Address1");
-        Accident thirdAccident = new Accident(3, "Name2", "Text", this.types.get(2), "Address2");
+        Accident firstAccident = new Accident(1, "Name", "Text", this.types.get(0), Set.of(this.rules.get(0)), "Address");
+        Accident secondAccident = new Accident(2, "Name1", "Text", this.types.get(1), Set.of(this.rules.get(0), this.rules.get(1)), "Address1");
+        Accident thirdAccident = new Accident(3, "Name2", "Text", this.types.get(2), Set.of(this.rules.get(0), this.rules.get(1), this.rules.get(2)), "Address2");
         this.accidents.put(firstAccident.getId(), firstAccident);
         this.accidents.put(secondAccident.getId(), secondAccident);
         this.accidents.put(thirdAccident.getId(), thirdAccident);
@@ -42,8 +47,16 @@ public class AccidentRepository {
         return this.types.get(id);
     }
 
+    public Rule findByIdRule(int id) {
+        return this.rules.get(id);
+    }
+
     public List<AccidentType> findAllType() {
         return new ArrayList<>(this.types);
+    }
+
+    public List<Rule> findAllRules() {
+        return new ArrayList<>(this.rules);
     }
 
     public List<Accident> findAll() {

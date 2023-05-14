@@ -71,6 +71,7 @@
             <th style="border: 0" scope="col">#</th>
             <th style="border: 0" scope="col">Name</th>
             <th style="border: 0" scope="col">Type</th>
+            <th style="border: 0" scope="col">Article</th>
             <th style="border: 0" scope="col">Description</th>
             <th style="border: 0" scope="col">Address</th>
         </tr>
@@ -82,6 +83,10 @@
                     <i th:href="@{/accident.name}" th:text="${accident.name}"></i>
                 </a></td>
                 <td style="border: 0" th:text="${accident.getType().getName()}"></td>
+                <td style="border: 0">
+                       <span th:each="ruls,iter : ${accident.getRules()}"
+                             th:text="${ruls.name} + ${!iter.last ? ', ' : ''}"></span>
+                </td>
                 <td style="border: 0" th:text="${accident.getDescription()}"></td>
                 <td style="border: 0" th:text="${accident.getAddress()}"></td>
             </div>
@@ -111,10 +116,18 @@
                         </div>
                         <div class="form-group">
                             <label for="type.id">Type</label>
-                            <select class="form-control" id="type.id"  name="type.id">
+                            <select class="form-control" id="type.id" name="type.id">
                                 <option th:each="type: ${types}"
                                         th:text="${type.name}"
                                         th:value="${type.id}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rIds">Article</label>
+                            <select class="form-control" id="rIds" name="rIds" multiple>
+                                <option th:each="rule: ${rules}"
+                                        th:text="${rule.name}"
+                                        th:value="${rule.id}"></option>
                             </select>
                         </div>
                         <div class="form-group">

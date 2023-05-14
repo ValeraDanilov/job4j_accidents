@@ -20,6 +20,7 @@ public class IndexController {
         model.addAttribute("user", "Ira");
         model.addAttribute("accidents", this.service.findAll());
         model.addAttribute("types", this.service.findAllType());
+        model.addAttribute("rules", this.service.findAllRules());
         return "index";
     }
 }
