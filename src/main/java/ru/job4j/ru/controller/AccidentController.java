@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.ru.model.Accident;
+import ru.job4j.ru.model.AccidentType;
 import ru.job4j.ru.model.Rule;
 import ru.job4j.ru.service.AccidentService;
 
@@ -30,7 +31,7 @@ public class AccidentController {
 
     @GetMapping("/formAccidentId/{id}")
     public String searchItem(Model model, @PathVariable Integer id) {
-        model.addAttribute("accidents", this.accidents.findById(id));
+        model.addAttribute("accidents", this.accidents.findByAccidentId(id));
         model.addAttribute("user", "Ira");
         return "accident";
     }
@@ -39,14 +40,14 @@ public class AccidentController {
     public String save(@ModelAttribute Accident accident, @RequestParam(value = "type.id") Integer typeId,
                        HttpServletRequest req) {
         accident.setRules(getRules(req));
-        accident.setType(this.accidents.findByIdType(typeId));
+        accident.setType(this.accidents.findByTypeId(typeId));
         accidents.create(accident);
         return "redirect:/index";
     }
 
-    @GetMapping("/formUpdateAccident/{accidentId}")
+        @GetMapping("/formUpdateAccident/{accidentId}")
     public String formUpdateItem(Model model, @PathVariable("accidentId") int id) {
-        model.addAttribute("accident", this.accidents.findById(id));
+        model.addAttribute("accident", this.accidents.findByAccidentId(id));
         model.addAttribute("types", this.accidents.findAllType());
         model.addAttribute("rules", this.accidents.findAllRules());
         return "updateAccident";
@@ -56,7 +57,7 @@ public class AccidentController {
     public String updateItem(@ModelAttribute Accident accident, @RequestParam(value = "type.id") Integer typeId,
                              HttpServletRequest req) {
         accident.setRules(getRules(req));
-        accident.setType(this.accidents.findByIdType(typeId));
+        accident.setType(this.accidents.findByTypeId(typeId));
         this.accidents.update(accident);
         return String.format("redirect:/formAccidentId/%s", accident.getId());
     }
@@ -64,7 +65,7 @@ public class AccidentController {
     private Set<Rule> getRules(HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
         Set<Rule> rules = new HashSet<>();
-        Arrays.stream(ids).forEach((a) -> rules.add(this.accidents.findByIdRule(Integer.parseInt(a))));
+        Arrays.stream(ids).forEach((a) -> rules.add(this.accidents.findByRuleId(Integer.parseInt(a))));
         return rules;
     }
 }

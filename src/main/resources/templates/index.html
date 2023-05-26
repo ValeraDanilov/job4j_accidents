@@ -82,12 +82,12 @@
                 <td style="border: 0"><a style="color: black" class="col" th:href="@{|/formAccidentId/${accident.id}|}">
                     <i th:href="@{/accident.name}" th:text="${accident.name}"></i>
                 </a></td>
-                <td style="border: 0" th:text="${accident.getType().getName()}"></td>
+                <td style="border: 0" th:text="${accident.getType().name}"></td>
                 <td style="border: 0">
                        <span th:each="ruls,iter : ${accident.getRules()}"
                              th:text="${ruls.name} + ${!iter.last ? ', ' : ''}"></span>
                 </td>
-                <td style="border: 0" th:text="${accident.getDescription()}"></td>
+               <td style="border: 0" th:text="${accident.getDescription()}"></td>
                 <td style="border: 0" th:text="${accident.getAddress()}"></td>
             </div>
         </tr>
