@@ -1,22 +1,22 @@
-package ru.job4j.ru.model;
+package ru.job4j.accidents.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Accident {
+@Entity
+@Table(name = "rules")
+public class Rule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
     private String name;
-    private String description;
-    private AccidentType type;
-    private Set<Rule> rules;
-    private String address;
 }

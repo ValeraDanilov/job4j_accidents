@@ -1,9 +1,9 @@
-package ru.job4j.ru.repository;
+package ru.job4j.accidents.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.job4j.ru.model.Accident;
-import ru.job4j.ru.model.AccidentType;
-import ru.job4j.ru.model.Rule;
+import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
+import ru.job4j.accidents.model.Rule;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

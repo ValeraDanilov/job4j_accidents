@@ -76,9 +76,9 @@
             <th style="border: 0" scope="col">Address</th>
         </tr>
 
-        <tr th:each="accident: ${accidents}" style="border: 0">
+        <tr th:each="accident,itr: ${accidents}" style="border: 0">
             <div>
-                <td style="border: 0" th:text="${accident.getId()}"></td>
+                <td style="border: 0" th:text="${itr.index + 1}"></td>
                 <td style="border: 0"><a style="color: black" class="col" th:href="@{|/formAccidentId/${accident.id}|}">
                     <i th:href="@{/accident.name}" th:text="${accident.name}"></i>
                 </a></td>

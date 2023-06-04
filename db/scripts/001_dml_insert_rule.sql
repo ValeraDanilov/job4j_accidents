@@ -1,3 +1,3 @@
-insert into rule(name) values ('Статья. 1');
-insert into rule(name) values ('Статья. 2');
-insert into rule(name) values ('Статья. 3');
+insert into rules(name) values ('Article. 1');
+insert into rules(name) values ('Article. 2');
+insert into rules(name) values ('Article. 3');

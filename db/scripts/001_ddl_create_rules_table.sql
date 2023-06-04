@@ -1,4 +1,4 @@
-create table if not exists rule
+create table if not exists rules
 (
     id   serial primary key,
     name text

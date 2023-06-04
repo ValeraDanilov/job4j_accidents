@@ -71,6 +71,34 @@
                     <button class="btn btn-warning" style="color: white">Edit</button>
                 </a>
             </div>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                Delete accident
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete accident?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+
+                            <div class="del" style="display: inline-block;">
+                                <a th:href="@{|/formDeleteAccident/${accident.id}|}">
+                                    <button type="button" class="btn btn-primary">Yes</button>
+                                </a>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Not</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <td style="border: 0" th:text="${accident.name}"></td>
             <td style="border: 0" th:text="${accident.type.getName()}"></td>
             <td style="border: 0">
