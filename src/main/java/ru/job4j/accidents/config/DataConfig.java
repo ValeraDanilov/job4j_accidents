@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories("ru.job4j.accidents.repository")
-@PropertySource("classpath:app.properties")
+@PropertySource("classpath:db/liquibase.properties")
 @EnableTransactionManagement
 public class DataConfig {
 

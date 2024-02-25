@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:app.properties")
+@PropertySource("classpath:db/liquibase.properties")
 @EnableTransactionManagement
 public class JdbcConfig {
 

@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:app.properties")
+@PropertySource("classpath:db/liquibase.properties")
 @EnableTransactionManagement
 public class HbmConfig {
 
