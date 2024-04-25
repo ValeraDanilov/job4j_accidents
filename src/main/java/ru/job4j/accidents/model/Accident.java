@@ -25,6 +25,7 @@ public class Accident {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")
     private AccidentType type;
+    private String status;
     @ManyToMany
     @JoinTable(
             name = "rule_accidents",

@@ -4,5 +4,6 @@ CREATE TABLE if not exists accidents
     name text,
     description text,
     type_id int not null references accidentsType(id),
-    address text
+    address text,
+    status text
 );
