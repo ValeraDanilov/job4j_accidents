@@ -5,10 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.AccidentStatus;
-import ru.job4j.accidents.model.AccidentType;
-import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.model.*;
 import ru.job4j.accidents.service.AccidentService;
 import ru.job4j.accidents.service.AccidentTypeService;
 import ru.job4j.accidents.service.RuleService;
@@ -47,14 +44,16 @@ public class AccidentController {
 
     @GetMapping("/formAccidentId/{id}")
     public String searchItem(Model model, @PathVariable Integer id) {
+        User user = this.userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Optional<Accident> findAccident = this.accidents.findByAccidentId(id);
         if (findAccident.isPresent()) {
             model.addAttribute("accidents", findAccident.get());
             model.addAttribute("chooses", STATUS);
             model.addAttribute("types", this.typeService.findAllAccidentsTyp());
             model.addAttribute("rules", this.ruleService.findAllRule());
-            model.addAttribute("user", this.userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+            model.addAttribute("isAdmin", user != null && user.getRoles() != null && user.getRoles().contains(Role.ADMIN));
             model.addAttribute("accidentStatusId", findAccident.get().getStatus());
+            model.addAttribute("user", user);
             this.accidentId.set(findAccident.get().getId());
         }
         return "accident";
